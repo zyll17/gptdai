@@ -3,111 +3,190 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我们的小天地</title>
+    <title>Kitty的小天地</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=ZCOOL+XiaoWei&display=swap');
+
         body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f7f7f7;
-            color: #333;
+            font-family: 'ZCOOL XiaoWei', sans-serif;
+            background: linear-gradient(to bottom, #ffdde1, #ee9ca7);
             text-align: center;
             padding: 0;
             margin: 0;
         }
 
         header {
-            background-color: #ff6f61;
+            background: rgba(255, 255, 255, 0.7);
             padding: 20px;
-            color: white;
-        }
-
-        header h1 {
-            font-size: 3em;
-        }
-
-        .content {
-            padding: 50px;
-        }
-
-        .btn {
-            background-color: #ff6f61;
-            color: white;
-            padding: 15px 30px;
-            font-size: 1.2em;
-            margin-top: 20px;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: all 0.3s ease;
-        }
-
-        .btn:hover {
-            background-color: #ff5733;
-            transform: scale(1.05);
-        }
-
-        .section {
-            margin: 30px 0;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 10px;
+            font-size: 2em;
+            color: #ff6f91;
+            font-weight: bold;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
-        .section img {
-            max-width: 100%;
-            border-radius: 10px;
+        .content {
+            padding: 30px;
         }
 
-        footer {
-            background-color: #333;
+        .section {
+            background: white;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            max-width: 600px;
+        }
+
+        button {
+            background-color: #ff6f91;
             color: white;
-            padding: 15px 0;
-            position: fixed;
-            width: 100%;
-            bottom: 0;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1.2em;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background-color: #ff3f70;
+            transform: scale(1.05);
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 2em;
+            color: red;
+            opacity: 0.7;
+            animation: floatUp 2s linear infinite;
+        }
+
+        @keyframes floatUp {
+            from { transform: translateY(0); opacity: 1; }
+            to { transform: translateY(-100px); opacity: 0; }
+        }
+
+        .gallery {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            gap: 10px;
+            padding: 20px 0;
+        }
+
+        .gallery img {
+            width: 250px;
+            height: 150px;
+            border-radius: 10px;
+            scroll-snap-align: center;
+        }
+
+        #message-board {
+            margin-top: 20px;
+        }
+
+        #messages {
+            background: #fff3f3;
+            padding: 10px;
+            border-radius: 10px;
+            min-height: 50px;
+        }
+
+        input {
+            padding: 5px;
+            font-size: 1em;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            margin-top: 10px;
         }
     </style>
 </head>
 <body>
 
-<header>
-    <h1>我们的故事</h1>
-    <p>一起走过的每一刻，都是值得珍惜的记忆</p>
-</header>
+<header>Kitty的小天地 💖</header>
 
 <div class="content">
 
-    <!-- 第一部分：介绍我们的故事 -->
+    <!-- 甜蜜语句 -->
     <section class="section">
-        <h2>我们的点滴</h2>
-        <p>每一段回忆都在我们心中，简单却美好。</p>
-        <button class="btn" onclick="alert('谢谢你让我成为你的故事的一部分！')">回忆起来</button>
+        <h2>我们的回忆💭</h2>
+        <p id="quote">点击按钮看看我们的小甜蜜！</p>
+        <button onclick="changeQuote()">换一句</button>
     </section>
 
-    <!-- 第二部分：插入图片 -->
+    <!-- 图片画廊 -->
     <section class="section">
-        <h2>我们的瞬间</h2>
-        <img src="https://via.placeholder.com/800x400" alt="我们一起的时光">
-        <p>这一刻，我们在一起。</p>
+        <h2>我们的瞬间 📸</h2>
+        <div class="gallery">
+            <img src="https://via.placeholder.com/250x150" alt="回忆1">
+            <img src="https://via.placeholder.com/250x150" alt="回忆2">
+            <img src="https://via.placeholder.com/250x150" alt="回忆3">
+        </div>
     </section>
 
-    <!-- 第三部分：互动功能 -->
+    <!-- 小留言板 -->
     <section class="section">
-        <h2>一起走的未来</h2>
-        <p>未来的每一步，我们都一起走</p>
-        <button class="btn" onclick="changeText()">点击我，改变一切</button>
-        <p id="change-text"></p>
+        <h2>给我的留言📝</h2>
+        <div id="messages">💌 这里会显示你输入的内容</div>
+        <input type="text" id="userInput" placeholder="输入你想说的话...">
+        <button onclick="addMessage()">发送</button>
+    </section>
+
+    <!-- 播放音乐 -->
+    <section class="section">
+        <h2>背景音乐🎶</h2>
+        <audio controls>
+            <source src="your-music.mp3" type="audio/mpeg">
+            你的浏览器不支持音频播放
+        </audio>
     </section>
 
 </div>
 
-<footer>
-    <p>感谢有你，一起走过的日子</p>
-</footer>
-
 <script>
-    function changeText() {
-        document.getElementById('change-text').innerText = "未来的每一步，我们都在一起。";
+    // 甜蜜语句
+    const quotes = [
+        "你是我最特别的存在💖",
+        "每一天和你在一起都很幸福！🥰",
+        "即使再忙，也会想你。",
+        "你的一切都让我的世界变得更美好。✨",
+        "有你在，才是最好的日子！💕"
+    ];
+
+    function changeQuote() {
+        const quoteText = document.getElementById("quote");
+        const randomIndex = Math.floor(Math.random() * quotes.length);
+        quoteText.innerText = quotes[randomIndex];
+
+        // 生成爱心动画
+        createHeart();
+    }
+
+    // 生成爱心
+    function createHeart() {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerText = "❤️";
+        document.body.appendChild(heart);
+        heart.style.left = Math.random() * window.innerWidth + "px";
+        heart.style.top = window.innerHeight + "px";
+
+        setTimeout(() => {
+            heart.remove();
+        }, 2000);
+    }
+
+    // 留言板功能
+    function addMessage() {
+        const input = document.getElementById("userInput").value;
+        if (input.trim() === "") return;
+
+        const messages = document.getElementById("messages");
+        const newMessage = document.createElement("p");
+        newMessage.innerText = input;
+        messages.appendChild(newMessage);
+
+        document.getElementById("userInput").value = "";
     }
 </script>
 
