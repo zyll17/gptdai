@@ -13,6 +13,7 @@
             text-align: center;
             padding: 0;
             margin: 0;
+            transition: background-color 0.5s;
         }
 
         header {
@@ -66,38 +67,57 @@
             to { transform: translateY(-100px); opacity: 0; }
         }
 
-        .gallery {
-            display: flex;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            gap: 10px;
-            padding: 20px 0;
+        /* 打字机效果 */
+        .typing {
+            font-size: 1.2em;
+            white-space: nowrap;
+            overflow: hidden;
+            border-right: 4px solid #ff6f91;
+            width: 0;
+            animation: typing 5s steps(30) 1s forwards;
         }
 
-        .gallery img {
-            width: 250px;
-            height: 150px;
-            border-radius: 10px;
-            scroll-snap-align: center;
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
         }
 
-        #message-board {
-            margin-top: 20px;
-        }
-
-        #messages {
-            background: #fff3f3;
+        /* 小气泡对话框 */
+        .chat-bubble {
+            position: relative;
+            display: inline-block;
+            background-color: #ffdde1;
             padding: 10px;
-            border-radius: 10px;
-            min-height: 50px;
+            border-radius: 20px;
+            max-width: 80%;
+            margin: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
-        input {
-            padding: 5px;
-            font-size: 1em;
-            border-radius: 5px;
-            border: 1px solid #ddd;
-            margin-top: 10px;
+        .chat-bubble:before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: -10px;
+            width: 0;
+            height: 0;
+            border-left: 10px solid #ffdde1;
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+        }
+
+        /* 随机颜色背景 */
+        .random-color-button {
+            font-size: 1.2em;
+            background-color: #ff6f91;
+            padding: 10px 20px;
+            border-radius: 10px;
+            color: white;
+            transition: 0.3s;
+        }
+
+        .random-color-button:hover {
+            background-color: #ff3f70;
         }
     </style>
 </head>
@@ -110,35 +130,29 @@
     <!-- 甜蜜语句 -->
     <section class="section">
         <h2>我们的回忆💭</h2>
-        <p id="quote">点击按钮看看我们的小甜蜜！</p>
+        <p id="quote" class="typing">点击按钮看看我们的小甜蜜！</p>
         <button onclick="changeQuote()">换一句</button>
     </section>
 
-    <!-- 图片画廊 -->
+    <!-- 小气泡对话框 -->
     <section class="section">
-        <h2>我们的瞬间 📸</h2>
-        <div class="gallery">
-            <img src="https://via.placeholder.com/250x150" alt="回忆1">
-            <img src="https://via.placeholder.com/250x150" alt="回忆2">
-            <img src="https://via.placeholder.com/250x150" alt="回忆3">
-        </div>
+        <h2>我们的对话🗣️</h2>
+        <div class="chat-bubble" id="chatBubble">你好呀，我的小宝！</div>
+        <button onclick="changeChat()">换一句话</button>
     </section>
 
-    <!-- 小留言板 -->
+    <!-- 随机颜色 -->
+    <section class="section">
+        <h2>点击按钮变换页面颜色🎨</h2>
+        <button class="random-color-button" onclick="changeBackgroundColor()">改变背景颜色</button>
+    </section>
+
+    <!-- 留言板 -->
     <section class="section">
         <h2>给我的留言📝</h2>
         <div id="messages">💌 这里会显示你输入的内容</div>
         <input type="text" id="userInput" placeholder="输入你想说的话...">
         <button onclick="addMessage()">发送</button>
-    </section>
-
-    <!-- 播放音乐 -->
-    <section class="section">
-        <h2>背景音乐🎶</h2>
-        <audio controls>
-            <source src="your-music.mp3" type="audio/mpeg">
-            你的浏览器不支持音频播放
-        </audio>
     </section>
 
 </div>
@@ -157,38 +171,22 @@
         const quoteText = document.getElementById("quote");
         const randomIndex = Math.floor(Math.random() * quotes.length);
         quoteText.innerText = quotes[randomIndex];
-
-        // 生成爱心动画
-        createHeart();
     }
 
-    // 生成爱心
-    function createHeart() {
-        const heart = document.createElement("div");
-        heart.classList.add("heart");
-        heart.innerText = "❤️";
-        document.body.appendChild(heart);
-        heart.style.left = Math.random() * window.innerWidth + "px";
-        heart.style.top = window.innerHeight + "px";
+    // 小气泡对话框
+    const chatMessages = [
+        "你好呀，我的小宝！",
+        "我爱你，永远不变！",
+        "今天好开心，和你一起度过的每一天都是最美好的。",
+        "等你，一直等你，直到永远！"
+    ];
 
-        setTimeout(() => {
-            heart.remove();
-        }, 2000);
+    function changeChat() {
+        const chatBubble = document.getElementById("chatBubble");
+        const randomIndex = Math.floor(Math.random() * chatMessages.length);
+        chatBubble.innerText = chatMessages[randomIndex];
     }
 
-    // 留言板功能
-    function addMessage() {
-        const input = document.getElementById("userInput").value;
-        if (input.trim() === "") return;
-
-        const messages = document.getElementById("messages");
-        const newMessage = document.createElement("p");
-        newMessage.innerText = input;
-        messages.appendChild(newMessage);
-
-        document.getElementById("userInput").value = "";
-    }
-</script>
-
-</body>
-</html>
+    // 随机背景颜色
+    function changeBackgroundColor() {
+        const colors = ['#ffdde1', 
