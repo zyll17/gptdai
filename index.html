@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我们的小天地</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f7f7f7;
+            color: #333;
+            text-align: center;
+            padding: 0;
+            margin: 0;
+        }
+
+        header {
+            background-color: #ff6f61;
+            padding: 20px;
+            color: white;
+        }
+
+        header h1 {
+            font-size: 3em;
+        }
+
+        .content {
+            padding: 50px;
+        }
+
+        .btn {
+            background-color: #ff6f61;
+            color: white;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            margin-top: 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #ff5733;
+            transform: scale(1.05);
+        }
+
+        .section {
+            margin: 30px 0;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .section img {
+            max-width: 100%;
+            border-radius: 10px;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>我们的故事</h1>
+    <p>一起走过的每一刻，都是值得珍惜的记忆</p>
+</header>
+
+<div class="content">
+
+    <!-- 第一部分：介绍我们的故事 -->
+    <section class="section">
+        <h2>我们的点滴</h2>
+        <p>每一段回忆都在我们心中，简单却美好。</p>
+        <button class="btn" onclick="alert('谢谢你让我成为你的故事的一部分！')">回忆起来</button>
+    </section>
+
+    <!-- 第二部分：插入图片 -->
+    <section class="section">
+        <h2>我们的瞬间</h2>
+        <img src="https://via.placeholder.com/800x400" alt="我们一起的时光">
+        <p>这一刻，我们在一起。</p>
+    </section>
+
+    <!-- 第三部分：互动功能 -->
+    <section class="section">
+        <h2>一起走的未来</h2>
+        <p>未来的每一步，我们都一起走</p>
+        <button class="btn" onclick="changeText()">点击我，改变一切</button>
+        <p id="change-text"></p>
+    </section>
+
+</div>
+
+<footer>
+    <p>感谢有你，一起走过的日子</p>
+</footer>
+
+<script>
+    function changeText() {
+        document.getElementById('change-text').innerText = "未来的每一步，我们都在一起。";
+    }
+</script>
+
+</body>
+</html>
