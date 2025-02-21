@@ -54,19 +54,6 @@
             transform: scale(1.05);
         }
 
-        .heart {
-            position: absolute;
-            font-size: 2em;
-            color: red;
-            opacity: 0.7;
-            animation: floatUp 2s linear infinite;
-        }
-
-        @keyframes floatUp {
-            from { transform: translateY(0); opacity: 1; }
-            to { transform: translateY(-100px); opacity: 0; }
-        }
-
         /* 打字机效果 */
         .typing {
             font-size: 1.2em;
@@ -74,7 +61,7 @@
             overflow: hidden;
             border-right: 4px solid #ff6f91;
             width: 0;
-            animation: typing 5s steps(30) 1s forwards;
+            animation: typing 3s steps(30) forwards;
         }
 
         @keyframes typing {
@@ -189,4 +176,13 @@
 
     // 随机背景颜色
     function changeBackgroundColor() {
-        const colors = ['#ffdde1', 
+        const colors = ['#ffdde1', '#ee9ca7', '#ff6f91', '#ff3f70', '#f5c6e0'];
+        document.body.style.background = colors[Math.floor(Math.random() * colors.length)];
+    }
+
+    // 留言板功能
+    function addMessage() {
+        const input = document.getElementById("userInput").value;
+        if (input.trim() === "") return;
+
+        const messages = document.getElementById("messages")
