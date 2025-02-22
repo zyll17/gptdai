@@ -1,141 +1,153 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-    <!-- 保持原有head内容不变 -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kitty的小天地</title>
+    <title>Kitty 和 小宝的秘密基地</title>
     <style>
-        /* 保持原有CSS不变 */
-        @import url('https://fonts.googleapis.com/css2?family=ZCOOL+XiaoWei&display=swap');
-
         body {
-            font-family: 'ZCOOL XiaoWei', sans-serif;
-            background: linear-gradient(to bottom, #ffdde1, #ee9ca7);
+            font-family: "Arial", sans-serif;
             text-align: center;
-            padding: 0;
+            background-color: #ffe4e1;
             margin: 0;
-            transition: background-color 0.5s;
-        }
-
-        header {
-            background: rgba(255, 255, 255, 0.7);
             padding: 20px;
-            font-size: 2em;
-            color: #ff6f91;
-            font-weight: bold;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            transition: background 0.5s;
         }
-
-        .content {
-            padding: 30px;
+        h1 {
+            font-size: 24px;
+            color: #ff69b4;
+            margin-bottom: 10px;
         }
-
-        .section {
-            background: white;
-            margin: 20px auto;
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            max-width: 600px;
-        }
-
-        button {
-            background-color: #ff6f91;
-            color: white;
+        .btn {
+            background-color: #ffb6c1;
             border: none;
             padding: 10px 20px;
-            font-size: 1.2em;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        button:hover {
-            background-color: #ff3f70;
-            transform: scale(1.05);
-        }
-
-        .typing {
-            font-size: 1.2em;
-            white-space: nowrap;
-            overflow: hidden;
-            border-right: 4px solid #ff6f91;
-            width: 0;
-            animation: typing 3s steps(30) forwards;
-        }
-
-        @keyframes typing {
-            from { width: 0; }
-            to { width: 100%; }
-        }
-
-        .chat-bubble {
-            position: relative;
-            display: inline-block;
-            background-color: #ffdde1;
-            padding: 10px;
-            border-radius: 20px;
-            max-width: 80%;
             margin: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.3s;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
         }
-
-        .chat-bubble:before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: -10px;
-            width: 0;
-            height: 0;
-            border-left: 10px solid #ffdde1;
-            border-top: 10px solid transparent;
-            border-bottom: 10px solid transparent;
+        .btn:hover {
+            background-color: #ff69b4;
+            transform: scale(1.1);
+        }
+        .message {
+            font-size: 20px;
+            margin-top: 10px;
+            color: #d14781;
+        }
+        .input-area {
+            margin-top: 20px;
+        }
+        input, textarea {
+            padding: 8px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ff69b4;
+            margin-bottom: 10px;
+        }
+        #messages {
+            margin-top: 10px;
+            width: 80%;
+            max-width: 400px;
+            background: #fff;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+            text-align: left;
+        }
+        .heart {
+            font-size: 30px;
+            color: red;
+            animation: heartbeat 1.5s infinite;
+        }
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
         }
     </style>
 </head>
 <body>
-    <header>🐾 Kitty的小天地 🐾</header>
+
+    <h1>Kitty 和 小宝的秘密基地 <span class="heart">❤️</span></h1>
     
-    <div class="content">
-        <div class="section">
-            <div class="typing">欢迎来到我的温馨小窝~</div>
-        </div>
+    <button class="btn" onclick="showMessage()">想我了吗？</button>
+    <button class="btn" onclick="shakeScreen()">戳一下</button>
+    <button class="btn" onclick="randomLove()">每日一句</button>
+    <button class="btn" onclick="changeBg()">换个背景</button>
 
-        <div class="section">
-            <!-- 仅添加onclick事件绑定 -->
-            <button onclick="showMessage()">点击有惊喜</button>
-            <button onclick="changeColor()">随机颜色</button>
-        </div>
+    <p class="message" id="message"></p>
 
-        <div class="section">
-            <div class="chat-bubble" id="messageBox">等你发现小秘密哦~</div>
-        </div>
+    <!-- 留言板 -->
+    <div class="input-area">
+        <h2>💌 留言板</h2>
+        <input type="text" id="nameInput" placeholder="你的名字">
+        <textarea id="messageInput" rows="3" placeholder="想说的话"></textarea>
+        <button class="btn" onclick="addMessage()">提交留言</button>
+        <div id="messages"></div>
+    </div>
+
+    <!-- 小秘密纸条 -->
+    <div class="input-area">
+        <h2>🤫 小秘密</h2>
+        <input type="text" id="secretInput" placeholder="写下你的秘密">
+        <button class="btn" onclick="revealSecret()">偷偷告诉你</button>
+        <p class="message" id="secretMessage"></p>
     </div>
 
     <script>
-        // 保持原有JavaScript不变
         function showMessage() {
-            const messages = [
-                "🎉 你找到我啦！",
-                "🌸 今天也要开心哦~",
-                "🍰 请你吃小蛋糕！",
-                "💖 你真是个小机灵鬼~",
-                "🐱 喵喵喵~"
+            document.getElementById("message").innerText = "当然想你啦！(づ￣ 3￣)づ";
+        }
+
+        function shakeScreen() {
+            document.body.style.transform = "translateX(5px)";
+            setTimeout(() => document.body.style.transform = "translateX(-5px)", 100);
+            setTimeout(() => document.body.style.transform = "translateX(0)", 200);
+        }
+
+        function randomLove() {
+            const words = [
+                "你是我心里最软的那块糖。",
+                "即使全世界与你为敌，我也站在你这边。",
+                "抱歉，我的心好小，装不下别人，只能装你。",
+                "如果爱你是错，我不愿意对。",
+                "想和你一起浪费时间，比如一起发呆，一起看日落。",
+                "每天早上醒来，阳光和你都在，这就是我想要的未来。"
             ];
-            const randomMsg = messages[Math.floor(Math.random() * messages.length)];
-            document.getElementById('messageBox').textContent = randomMsg;
+            let randomIndex = Math.floor(Math.random() * words.length);
+            document.getElementById("message").innerText = words[randomIndex];
         }
 
-        function changeColor() {
-            const colors = ['#ffdde1', '#ee9ca7', '#F4D03F', '#AED6F1', '#ABEBC6'];
-            const randomColor = colors[Math.floor(Math.random() * colors.length)];
-            document.body.style.background = randomColor;
+        function changeBg() {
+            const colors = ["#ffe4e1", "#fce4ec", "#e1bee7", "#d1c4e9", "#b3e5fc"];
+            let randomColor = colors[Math.floor(Math.random() * colors.length)];
+            document.body.style.backgroundColor = randomColor;
         }
 
-        document.addEventListener('DOMContentLoaded', () => {
-            document.querySelector('.typing').style.animation = 'typing 3s steps(30) forwards';
-        });
-    </script>
-</body>
-</html>
+        function addMessage() {
+            let name = document.getElementById("nameInput").value;
+            let message = document.getElementById("messageInput").value;
+            if (name && message) {
+                let messageBox = document.createElement("p");
+                messageBox.innerHTML = `<strong>${name}：</strong> ${message}`;
+                document.getElementById("messages").appendChild(messageBox);
+                document.getElementById("nameInput").value = "";
+                document.getElementById("messageInput").value = "";
+            } else {
+                alert("请填写完整的留言信息！");
+            }
+        }
+
+        function revealSecret() {
+            let secret = document.getElementById("secretInput").value;
+            if (secret) {
+                document.getE
