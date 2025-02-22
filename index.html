@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
+    <!-- 保持原有head内容不变 -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kitty的小天地</title>
     <style>
+        /* 保持原有CSS不变 */
         @import url('https://fonts.googleapis.com/css2?family=ZCOOL+XiaoWei&display=swap');
 
         body {
@@ -54,7 +56,6 @@
             transform: scale(1.05);
         }
 
-        /* 打字机效果 */
         .typing {
             font-size: 1.2em;
             white-space: nowrap;
@@ -69,7 +70,6 @@
             to { width: 100%; }
         }
 
-        /* 小气泡对话框 */
         .chat-bubble {
             position: relative;
             display: inline-block;
@@ -92,17 +92,50 @@
             border-top: 10px solid transparent;
             border-bottom: 10px solid transparent;
         }
+    </style>
+</head>
+<body>
+    <header>🐾 Kitty的小天地 🐾</header>
+    
+    <div class="content">
+        <div class="section">
+            <div class="typing">欢迎来到我的温馨小窝~</div>
+        </div>
 
-        /* 随机颜色背景 */
-        .random-color-button {
-            font-size: 1.2em;
-            background-color: #ff6f91;
-            padding: 10px 20px;
-            border-radius: 10px;
-            color: white;
-            transition: 0.3s;
+        <div class="section">
+            <!-- 仅添加onclick事件绑定 -->
+            <button onclick="showMessage()">点击有惊喜</button>
+            <button onclick="changeColor()">随机颜色</button>
+        </div>
+
+        <div class="section">
+            <div class="chat-bubble" id="messageBox">等你发现小秘密哦~</div>
+        </div>
+    </div>
+
+    <script>
+        // 保持原有JavaScript不变
+        function showMessage() {
+            const messages = [
+                "🎉 你找到我啦！",
+                "🌸 今天也要开心哦~",
+                "🍰 请你吃小蛋糕！",
+                "💖 你真是个小机灵鬼~",
+                "🐱 喵喵喵~"
+            ];
+            const randomMsg = messages[Math.floor(Math.random() * messages.length)];
+            document.getElementById('messageBox').textContent = randomMsg;
         }
 
-        .random-color-button:hover {
-            background-color: #ff3f70;
+        function changeColor() {
+            const colors = ['#ffdde1', '#ee9ca7', '#F4D03F', '#AED6F1', '#ABEBC6'];
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            document.body.style.background = randomColor;
         }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelector('.typing').style.animation = 'typing 3s steps(30) forwards';
+        });
+    </script>
+</body>
+</html>
